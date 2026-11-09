@@ -2,18 +2,79 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Rowan's Status</title>
+  <style>
+    body {
+      font-family: "Comic Sans MS", "Trebuchet MS", sans-serif;
+      background: #fff0f6;
+      color: #4a2c40;
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 24px 16px;
+      line-height: 1.5;
+    }
+    h1 {
+      text-align: center;
+      color: #d6457a;
+    }
+    .card {
+      background: #ffffff;
+      border: 3px dashed #f5a6c8;
+      border-radius: 20px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      box-shadow: 0 4px 0 #f5a6c8;
+    }
+    #status {
+      font-size: 1.2em;
+      font-weight: bold;
+      text-align: center;
+    }
+    .small {
+      font-size: 0.9em;
+      color: #8a5a78;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Current status</h1>
-  <p id="status">Loading...</p>
+  <h1>✿ Current status ✿</h1>
+
+  <div class="card">
+    <p id="status">Loading...</p>
+  </div>
+
+  <div class="card">
+    <h2>How it works</h2>
+    <p>If you catch me in my room with my door closed and/or sleeping before 8pm, I will buy you a lunch or dinner.</p>
+
+    <p><strong>Conditions:</strong></p>
+    <ul>
+      <li>If my girlfriend is over, I will lock my door. If you catch me cheating (locking my door without a lover over), I'll buy you two meals instead of one.</li>
+      <li>I may also use the door locking clause if I want/need to have a private conversation with someone other than my girlfriend.</li>
+      <li>For now, "before 8pm" will include the hours of 1pm-8pm, except TTh, which are 11am-8pm (11/5 i dont have class so 1pm-8pm applies). These hours might expand to 11am-10pm.</li>
+      <li>If I'm coming out of the shower, I might crack the door, and I will change my clothes while keeping my robe/towel on to avoid flashing unwilling eyes.</li>
+      <li>You might see me topless more. (I often don't like wearing clothes.)</li>
+      <li>I may add a limited nap clause in the future, but I'll try to avoid it at least for now.</li>
+    </ul>
+  </div>
 
   <script>
     fetch("status.json?t=" + Date.now())
       .then(r => r.json())
       .then(d => {
-        document.getElementById("status").textContent =
-          d.status + " (updated " + d.updated + ")";
+        document.getElementById("status").textContent = d.status;
+        const note = document.createElement("p");
+        note.className = "small";
+        note.style.textAlign = "center";
+        note.textContent = "updated " + d.updated;
+        document.getElementById("status").after(note);
       });
   </script>
 </body>
