@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Rowan's Status</title>
+</head>
+<body>
+  <h1>Current status</h1>
+  <p id="status">Loading...</p>
+
+  <script>
+    fetch("status.json?t=" + Date.now())
+      .then(r => r.json())
+      .then(d => {
+        document.getElementById("status").textContent =
+          d.status + " (updated " + d.updated + ")";
+      });
+  </script>
+</body>
+</html>
