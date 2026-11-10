@@ -1,81 +1,138 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Rowan's Status</title>
-  <style>
-    body {
-      font-family: "Comic Sans MS", "Trebuchet MS", sans-serif;
-      background: #fff0f6;
-      color: #4a2c40;
-      max-width: 560px;
-      margin: 0 auto;
-      padding: 24px 16px;
-      line-height: 1.5;
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knock Anytime Challenge</title>
+<style>
+  :root {
+    --bg: #fff8f1; --card: #ffffff; --text: #3b2a2a; --muted: #8a6f6a; --border: #f3ddd0;
+    --ok: #2e7d4f; --ok-bg: #e4f4e9; --warn: #c0392b; --warn-bg: #ffe5df; --off: #7a4a8c; --off-bg: #f3e8f7;
+    --sunset: linear-gradient(90deg, #ff7e5f, #feb47b, #ff6f91, #b565d9);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1f1520; --card: #2a1d2c; --text: #f6e9e4; --muted: #b79ba0; --border: #43304a;
+      --ok: #86dba0; --ok-bg: #1d3427; --warn: #ff9a8a; --warn-bg: #4a2224; --off: #d3a8e6; --off-bg: #36253f;
+      color-scheme: dark;
     }
-    h1 {
-      text-align: center;
-      color: #d6457a;
-    }
-    .card {
-      background: #ffffff;
-      border: 3px dashed #f5a6c8;
-      border-radius: 20px;
-      padding: 16px 20px;
-      margin: 16px 0;
-      box-shadow: 0 4px 0 #f5a6c8;
-    }
-    #status {
-      font-size: 1.2em;
-      font-weight: bold;
-      text-align: center;
-    }
-    .small {
-      font-size: 0.9em;
-      color: #8a5a78;
-    }
-    ul {
-      padding-left: 20px;
-    }
-    li {
-      margin-bottom: 8px;
-    }
-  </style>
+  }
+  body::before { content: ""; position: fixed; inset: 0 0 auto 0; height: 5px; background: var(--sunset); z-index: 10; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 17px/1.6 Georgia, "Times New Roman", serif;
+    padding: 1.5rem 1rem 3rem;
+  }
+  main { max-width: 38rem; margin: 0 auto; }
+  h1 { font-size: 1.9rem; line-height: 1.2; margin: 0 0 .25rem; background: var(--sunset); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; }
+  h2 { font-size: 1.15rem; margin: 2rem 0 .5rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .sub { color: var(--muted); margin: 0 0 1.5rem; }
+  .status { border-radius: 14px; padding: 1.1rem 1.25rem; border: 1px solid var(--border); }
+  .status .label { font: 600 .8rem/1 system-ui, sans-serif; text-transform: uppercase; letter-spacing: .08em; margin-bottom: .5rem; }
+  .status .headline { font-size: 1.35rem; font-weight: 700; margin: 0; }
+  .status .msg { margin: .5rem 0 0; }
+  .status .meta { margin: .6rem 0 0; font: .85rem system-ui, sans-serif; opacity: .8; }
+  .status.ok { background: var(--ok-bg); color: var(--ok); }
+  .status.warn { background: var(--warn-bg); color: var(--warn); }
+  .status.off { background: var(--off-bg); color: var(--off); }
+  .card { box-shadow: 0 2px 8px rgba(120,60,60,.08); background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.25rem; }
+  .card p { margin: 0 0 .8rem; }
+  .card p:last-child { margin-bottom: 0; }
+  ul { padding-left: 1.2rem; margin: 0; }
+  li { margin-bottom: .6rem; }
+  li:last-child { margin-bottom: 0; }
+  .hint { font: .85rem system-ui, sans-serif; color: var(--muted); margin-top: 1rem; }
+</style>
 </head>
 <body>
-  <h1>✿ Current status ✿</h1>
+<main>
+  <h1>The Knock Anytime Challenge</h1>
+  <p class="sub">Check here before you knock.</p>
 
+  <h2>Status</h2>
+  <div id="status" class="status ok" aria-live="polite">
+    <div class="label" id="status-label">Loading…</div>
+    <p class="headline" id="status-headline"></p>
+    <p class="msg" id="status-msg" hidden></p>
+    <p class="meta" id="status-meta" hidden></p>
+  </div>
+  <p class="hint">Refresh this page right before you knock.</p>
+
+  <h2>How it works</h2>
   <div class="card">
-    <p id="status">Loading...</p>
+    <p>I’m challenging myself to enforce a stricter sleep and wake schedule. This is me bribing you to help keep me accountable.</p>
+    <p>If, between 1–8pm any day, you catch me sleeping or in my room with my door closed, I will buy you a meal.</p>
+    <p>There are limited exceptions, and this page is meant to communicate those so you feel comfortable knocking any time. If something truly comes up, like needing to have a private conversation, I’ll update this page and lock my door. If you refresh this page before knocking and attempting to enter, you’ll be golden.</p>
   </div>
 
+  <h2>Fine print</h2>
   <div class="card">
-    <h2>How it works</h2>
-    <p>If you catch me in my room with my door closed and/or sleeping before 8pm, I will buy you a lunch or dinner.</p>
-
-    <p><strong>Conditions:</strong></p>
     <ul>
-      <li>If my girlfriend is over, I will lock my door. If you catch me cheating (locking my door without a lover over), I'll buy you two meals instead of one.</li>
-      <li>I may also use the door locking clause if I want/need to have a private conversation with someone other than my girlfriend.</li>
-      <li>For now, "before 8pm" will include the hours of 1pm-8pm, except TTh, which are 11am-8pm (11/5 i dont have class so 1pm-8pm applies). These hours might expand to 11am-10pm.</li>
-      <li>If I'm coming out of the shower, I might crack the door, and I will change my clothes while keeping my robe/towel on to avoid flashing unwilling eyes.</li>
-      <li>You might see me topless more. (I often don't like wearing clothes.)</li>
-      <li>I may add a limited nap clause in the future, but I'll try to avoid it at least for now.</li>
+      <li>If you catch me cheating on this rule, I’ll buy you 2 meals instead of 1 and owe you 3 favors.</li>
+      <li>The bar for what counts as a valid exception should be high. You can press me to really justify why I thought my reason was good enough.</li>
+      <li>Don’t be afraid of accidentally getting flashed. I’ll take care to prevent that.</li>
     </ul>
   </div>
+</main>
 
-  <script>
-    fetch("status.json?t=" + Date.now())
-      .then(r => r.json())
-      .then(d => {
-        document.getElementById("status").textContent = d.status;
-        const note = document.createElement("p");
-        note.className = "small";
-        note.style.textAlign = "center";
-        note.textContent = "updated " + d.updated;
-        document.getElementById("status").after(note);
-      });
-  </script>
+<script>
+/* ============================================================
+   EDIT THIS BLOCK TO POST A STATUS UPDATE, then save/commit.
+   - paused: true  -> shows "Challenge paused" (door may be closed)
+   - paused: false -> normal status; message (if any) is shown as a note
+   - message: what people need to know ("" for none)
+   - updated: free text, e.g. "Mon 2:15pm" ("" to hide)
+   ============================================================ */
+const STATUS = {
+  paused: false,
+  message: "",
+  updated: ""
+};
+
+/* Challenge hours (24h clock) and time zone */
+const START_HOUR = 13;  // 1pm
+const END_HOUR = 20;    // 8pm
+const TIME_ZONE = "America/New_York";
+/* ============================================================ */
+
+function currentHour() {
+  try {
+    const h = new Intl.DateTimeFormat("en-US", { hour: "numeric", hourCycle: "h23", timeZone: TIME_ZONE }).format(new Date());
+    return parseInt(h, 10);
+  } catch (e) {
+    return new Date().getHours();
+  }
+}
+
+function render() {
+  const hour = currentHour();
+  const inHours = hour >= START_HOUR && hour < END_HOUR;
+  const box = document.getElementById("status");
+  const label = document.getElementById("status-label");
+  const headline = document.getElementById("status-headline");
+  const msg = document.getElementById("status-msg");
+  const meta = document.getElementById("status-meta");
+
+  let cls, lab, head;
+  if (STATUS.paused) {
+    cls = "warn"; lab = "Paused"; head = "Challenge temporarily paused. Please don’t knock.";
+  } else if (inHours) {
+    cls = "ok"; lab = "Active"; head = "All clear. Knock away.";
+  } else {
+    cls = "off"; lab = "Off hours"; head = "The challenge is off right now. It resumes at 1pm.";
+  }
+  box.className = "status " + cls;
+  label.textContent = lab;
+  headline.textContent = head;
+
+  if (STATUS.message) { msg.textContent = STATUS.message; msg.hidden = false; }
+  if (STATUS.updated) { meta.textContent = "Last updated: " + STATUS.updated; meta.hidden = false; }
+}
+
+render();
+setInterval(render, 60000);
+</script>
 </body>
 </html>
